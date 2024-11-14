@@ -1,0 +1,4 @@
+Ange 2 heltal: 
+25 + 33 blir 58
+25 · 33 blir 825
+
