@@ -1,0 +1,9 @@
+example1:	example1.o 
+	g++ -o example1 example1.o
+example1.o:	example1.cpp 
+	g++ -c example1.cpp
+run:
+	@./example1
+.SILENT: 
+clean:
+	rm *.o
