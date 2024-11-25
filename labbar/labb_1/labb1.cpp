@@ -1,26 +1,30 @@
 #include <iostream>
 int main()
 {
-
     int amountOfInputs = 0;
-    double userInputSum = 0;
-    double userInputMin = 9e99;
-    double userInputMax = -9e99;
-    double userMedian = 0;
-    double userInput;
+    int userInputSum = 0;
+    int userInputMax;
+    int userInputMin;
+    int userInput;
 
-    // Loop för beräkningar av användarens inmatningar på tangentbordet
+    // Loop för beräkningar av användarens inmatningar på tangentbordet som ger medelvärde, max och min-tal
     while (std::cin >> userInput) {
     
         userInputSum += userInput;
+       
+       if (amountOfInputs == 0) {
+        userInputMax = userInput;
+        userInputMin = userInput;
+       }
+       
         amountOfInputs++;
 
-        // Maxvärde
+        // maxvärde
         if (userInput > userInputMax) {
         userInputMax = userInput;
         }
 
-        // Minvärde
+        // minvärde
         if (userInput < userInputMin) {
         userInputMin = userInput;
         }
@@ -29,10 +33,10 @@ int main()
 
     if (amountOfInputs > 0) {
     // medelvärde
-    std::cout << "Medelvärdet är: " << userInputSum / amountOfInputs << std::endl;
-    //maxvärde
+    std::cout << "Medelvärdet är: " << static_cast<double>(userInputSum) / amountOfInputs << std::endl;
+    // maxvärde
     std::cout << "Maxvärdet är " << userInputMax << std::endl;
-    //minvärde
+    // minvärde
     std::cout << "Minvärdet är " << userInputMin << std::endl;    
     }
 return 0;
