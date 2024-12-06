@@ -1,7 +1,9 @@
-in = labb3.cpp
-ut = labb3.exe
+programmet: labb3.cpp funktion1.cpp funktion2.cpp funktion1.h funktion2.h
+	g++ -o programmet labb3.cpp funktion1.cpp funktion2.cpp
 
-kompilera = -std=c++11
+run: programmet
+	./programmet
 
-$(ut): $(in)
-	g++ $(kompilera) -o $(ut) $(in)
+clean:
+	rm programmet
+

@@ -1,14 +1,9 @@
-#ifndef FUNKTION_2
-#define FUNKTION_2
+#ifndef FUNKTION2_H
+#define FUNKTION2_H
+
 #include <iostream>
+#include <fstream>
 
-
-
-
-
-
-
-
-
+int sortFiles();
 
 #endif
