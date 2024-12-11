@@ -1,14 +1,12 @@
-#include "funktion2.h"
+#include "test.h"
+#include <iostream>
 
-std::ifstream fileOneMerge("Heltal.txt");
-std::ifstream fileTwoMerge("Uddatal.txt");
-std::ofstream sortOutput("diverseHeltalOutput.txt");
+
+
+int sortFiles()
+{
 int sortNumberOne;
 int sortNumberTwo;
-
-
-void sortFiles()
-{
 
     fileOneMerge >> sortNumberOne;
     fileTwoMerge >> sortNumberTwo;

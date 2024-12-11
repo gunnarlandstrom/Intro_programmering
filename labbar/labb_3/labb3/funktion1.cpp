@@ -1,37 +1,31 @@
 #include "funktion1.h"
 
-#include <fstream>
-#include <iostream>
-
-std::ifstream checkFileOne("osorterade_tal_1.txt");
-std::ifstream checkFileTwo("osorterade_tal_2.txt");
-
-int CheckNumberOne;
-int CheckNumberTwo;
+std::ifstream fileOneSort("Heltal.txt");
+std::ifstream fileTwoSort("Uddatal.txt");
+int numberOne;
+int numberTwo;
+bool isSorted;
 
 bool isFileSorted()
 {
 
-    checkFileOne >> CheckNumberOne;
+    fileOneSort >> numberOne;
 
-    while (!checkFileOne.eof())
+    while (!fileOneSort.eof())
     {
 
-        checkFileTwo >> CheckNumberTwo;
+        fileOneSort >> numberTwo;
 
-        if (CheckNumberOne > CheckNumberTwo)
+        if (numberOne > numberTwo)
         {
 
-            return false;
+            isSorted = false;
+            return isSorted;
         }
 
-        CheckNumberOne = CheckNumberTwo;
+        numberOne = numberTwo;
 
-        return true;
+        isSorted = true;
     }
-
-    checkFileOne.close();
-    checkFileTwo.close();
-
     return false;
 }
