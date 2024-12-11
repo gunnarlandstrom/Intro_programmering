@@ -42,7 +42,7 @@ void sortFiles(std::string fileNameOne, std::string fileNameTwo, std::string out
     while (!fileTwo.eof())
     {
         outputFile << currentValueFileTwo << ' ';
-        std::getline(fileOne, currentValueFileTwo, ' ');
+        std::getline(fileTwo, currentValueFileTwo, ' ');
     }
     fileOne.close();
     fileTwo.close();
