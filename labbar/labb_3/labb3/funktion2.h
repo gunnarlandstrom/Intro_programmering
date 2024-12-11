@@ -3,6 +3,6 @@
 
 #include <fstream>
 
-void sortFiles(fileNameOne, fileNameTwo, outputFileName);
+void sortFiles(std::string fileNameOne, std::string fileNameTwo, std::string outputFileName);
 
 #endif

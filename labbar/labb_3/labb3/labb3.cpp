@@ -14,10 +14,10 @@ int main()
     }
     else
     {
-        std::cout << "File is not sorted." << std::endl;
+        std::cout << "File is not sorted." << std::endl << std::endl;
     }
 
-    sortFiles("A", "B", "diverseHeltalOutput.txt");
+    sortFiles("heltal.txt", "uddatal.txt", "diverseHeltalOutput.txt");
     
     isSorted = isFileSorted("diverseHeltalOutput.txt");
     if (isSorted)

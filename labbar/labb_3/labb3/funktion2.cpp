@@ -10,26 +10,45 @@ void sortFiles(std::string fileNameOne, std::string fileNameTwo, std::string out
     std::ifstream fileTwo;
     std::ofstream outputFile;
 
-    fileOne.open();
-    fileTwo.open();
-    outputFile.open();
+    fileOne.open(fileNameOne);
+    fileTwo.open(fileNameTwo);
+    outputFile.open(outputFileName);
 
-    std::string a;
-    std::string a;
+    std::string currentValueFileOne;
+    std::string currentValueFileTwo;
 
     std::getline(fileOne, currentValueFileOne, ' ');
     std::getline(fileTwo, currentValueFileTwo, ' ');
 
-    while (!fileOne.eof() && !fileTwo.eof()) {
+    while (!fileOne.eof() && !fileTwo.eof())
+    {
 
-        if (a < currentValueFileTwo)
-
-
-
+        if (currentValueFileOne < currentValueFileTwo)
+        {
+            outputFile << currentValueFileOne << ' ';
+            std::getline(fileOne, currentValueFileOne, ' ');
+        }
+        else
+        {
+            outputFile << currentValueFileTwo << ' ';
+            std::getline(fileTwo, currentValueFileTwo, ' ');
+        }
     }
+    while (!fileOne.eof())
+    {
+        outputFile << currentValueFileOne << ' ';
+        std::getline(fileOne, currentValueFileOne, ' ');
+    }
+    while (!fileTwo.eof())
+    {
+        outputFile << currentValueFileTwo << ' ';
+        std::getline(fileOne, currentValueFileTwo, ' ');
+    }
+    fileOne.close();
+    fileTwo.close();
+    outputFile.close();
 
 }
-
 
 /*
     while (!fileOneMerge.eof() && !fileTwoMerge.eof())
