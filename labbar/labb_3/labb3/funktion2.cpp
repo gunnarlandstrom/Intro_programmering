@@ -1,18 +1,37 @@
 #include "funktion2.h"
+#include <iostream>
+#include <fstream>
+#include <string>
 
-std::ifstream fileOneMerge("Heltal.txt");
-std::ifstream fileTwoMerge("Uddatal.txt");
-std::ofstream sortOutput("diverseHeltalOutput.txt");
-int sortNumberOne;
-int sortNumberTwo;
-
-
-void sortFiles()
+void sortFiles(std::string fileNameOne, std::string fileNameTwo, std::string outputFileName)
 {
 
-    fileOneMerge >> sortNumberOne;
-    fileTwoMerge >> sortNumberTwo;
+    std::ifstream fileOne;
+    std::ifstream fileTwo;
+    std::ofstream outputFile;
 
+    fileOne.open();
+    fileTwo.open();
+    outputFile.open();
+
+    std::string a;
+    std::string a;
+
+    std::getline(fileOne, currentValueFileOne, ' ');
+    std::getline(fileTwo, currentValueFileTwo, ' ');
+
+    while (!fileOne.eof() && !fileTwo.eof()) {
+
+        if (a < currentValueFileTwo)
+
+
+
+    }
+
+}
+
+
+/*
     while (!fileOneMerge.eof() && !fileTwoMerge.eof())
     {
 
@@ -43,10 +62,4 @@ void sortFiles()
         sortOutput << sortNumberTwo << " ";
         fileTwoMerge >> sortNumberTwo;
     }
-
-    fileOneMerge.close();
-    fileTwoMerge.close();
-    sortOutput.close();
-    exit(0);
-
-}
+*/

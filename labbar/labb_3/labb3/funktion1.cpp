@@ -1,31 +1,38 @@
 #include "funktion1.h"
+#include <fstream>
+#include <iostream>
 
-std::ifstream fileOneSort("Heltal.txt");
-std::ifstream fileTwoSort("Uddatal.txt");
-int numberOne;
-int numberTwo;
-bool isSorted;
-
-bool isFileSorted()
+bool isFileSorted(std::string fileName)
 {
+    std::ifstream file;
+    file.open(fileName);
 
-    fileOneSort >> numberOne;
-
-    while (!fileOneSort.eof())
+    if (file.is_open())
     {
-
-        fileOneSort >> numberTwo;
-
-        if (numberOne > numberTwo)
+        std::string currentValue;
+        std::getline(file, currentValue, ' ');
+        int previousValue = 0;
+        while (!file.eof())
         {
+            previousValue = std::stoi(currentValue);
 
-            isSorted = false;
-            return isSorted;
+            if (std::stoi(currentValue) < previousValue)
+            {
+                file.close();
+                return false;
+            }
+
+            std::getline(file, currentValue, ' ');
         }
-
-        numberOne = numberTwo;
-
-        isSorted = true;
+        file.close();
     }
-    return false;
+    else
+    {
+        std::cout << "Could not read file." << std::endl;
+        std::cout << "Filename input: " << fileName << std::endl;
+        file.close();
+        return false;
+    }
+
+    return true;
 }

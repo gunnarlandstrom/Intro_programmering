@@ -2,8 +2,6 @@
 #define FUNKTION1_H
 #include <fstream>
 
-
-
-bool isFileSorted();
+bool isFileSorted(std::string fileName);
 
 #endif

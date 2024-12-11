@@ -5,10 +5,29 @@
 
 int main()
 {
+    bool isSorted;
 
+    isSorted = isFileSorted("heltal.txt");
+    if (isSorted)
+    {
+        std::cout << "File is sorted." << std::endl;
+    }
+    else
+    {
+        std::cout << "File is not sorted." << std::endl;
+    }
 
-
-    std::cout << isFileSorted;
+    sortFiles("A", "B", "diverseHeltalOutput.txt");
+    
+    isSorted = isFileSorted("diverseHeltalOutput.txt");
+    if (isSorted)
+    {
+        std::cout << "File is sorted." << std::endl;
+    }
+    else
+    {
+        std::cout << "File is not sorted." << std::endl;
+    }
 
     return 0;
 }

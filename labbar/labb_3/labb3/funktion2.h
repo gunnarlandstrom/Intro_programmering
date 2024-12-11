@@ -3,6 +3,6 @@
 
 #include <fstream>
 
-void sortFiles();
+void sortFiles(fileNameOne, fileNameTwo, outputFileName);
 
 #endif
