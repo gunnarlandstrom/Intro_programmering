@@ -1,7 +1,5 @@
 #include "funktion2.h"
 #include <iostream>
-#include <fstream>
-#include <string>
 
 void sortFiles(std::string fileNameOne, std::string fileNameTwo, std::string outputFileName)
 {
@@ -14,11 +12,11 @@ void sortFiles(std::string fileNameOne, std::string fileNameTwo, std::string out
     fileTwo.open(fileNameTwo);
     outputFile.open(outputFileName);
 
-    std::string currentValueFileOne;
-    std::string currentValueFileTwo;
+    int currentValueFileOne;
+    int currentValueFileTwo;
 
-    std::getline(fileOne, currentValueFileOne, ' ');
-    std::getline(fileTwo, currentValueFileTwo, ' ');
+    fileOne >> currentValueFileOne;
+    fileTwo >> currentValueFileTwo;
 
     while (!fileOne.eof() && !fileTwo.eof())
     {
@@ -26,59 +24,25 @@ void sortFiles(std::string fileNameOne, std::string fileNameTwo, std::string out
         if (currentValueFileOne < currentValueFileTwo)
         {
             outputFile << currentValueFileOne << ' ';
-            std::getline(fileOne, currentValueFileOne, ' ');
+            fileOne >> currentValueFileOne;
         }
         else
         {
             outputFile << currentValueFileTwo << ' ';
-            std::getline(fileTwo, currentValueFileTwo, ' ');
+            fileTwo >> currentValueFileTwo;
         }
     }
     while (!fileOne.eof())
     {
         outputFile << currentValueFileOne << ' ';
-        std::getline(fileOne, currentValueFileOne, ' ');
+        fileOne >> currentValueFileOne;
     }
     while (!fileTwo.eof())
     {
         outputFile << currentValueFileTwo << ' ';
-        std::getline(fileTwo, currentValueFileTwo, ' ');
+        fileTwo >> currentValueFileTwo;
     }
     fileOne.close();
     fileTwo.close();
     outputFile.close();
-
 }
-
-/*
-    while (!fileOneMerge.eof() && !fileTwoMerge.eof())
-    {
-
-        if (sortNumberOne < sortNumberTwo)
-        {
-
-            sortOutput << sortNumberOne;
-            fileOneMerge >> sortNumberTwo;
-        }
-        else
-        {
-
-            sortOutput << sortNumberTwo;
-            fileTwoMerge >> sortNumberTwo;
-        }
-    }
-
-    while (!fileOneMerge.eof())
-    {
-
-        sortOutput << sortNumberOne << " ";
-        fileOneMerge >> sortNumberOne;
-    }
-
-    while (!fileTwoMerge.eof())
-    {
-
-        sortOutput << sortNumberTwo << " ";
-        fileTwoMerge >> sortNumberTwo;
-    }
-*/
