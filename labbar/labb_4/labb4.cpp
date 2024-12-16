@@ -10,16 +10,21 @@ int main()
     std::string outputDocument = "outPut.txt";
 
     std::ifstream bookFile;
+    std::ifstream mappingFile;
     std::ofstream outputFile;
 
-    std::string wordOne;
-    std::string wordTwo;
+    std::string wordOne, wordTwo, cleanedWord;
+
     std::vector<std::string> wordVector;
-    std::string cleanedWord;
+    int wordValues;
 
     outputFile.open(outputDocument);
     bookFile.open(fileOne);
+
     bookFile >> wordOne;
+
+    std::map<std::string, int> myMap;
+    std::map<std::string, int>::const_iterator iterate;
 
     while (!bookFile.eof())
     {
@@ -32,28 +37,25 @@ int main()
             cleanedWord = removeSpecialCharacter(wordOne);
         }
 
-
-        wordVector.push_back(cleanedWord);
-
         bookFile >> wordOne;
+        wordVector.push_back(cleanedWord);
+        wordValues++;
     }
-
-    std::map<std::string, int> myMap;
-    std::map<std::string, int>::iterator it = myMap.begin();
-
-    while (it != myMap.end())
+    for (auto i : wordVector)
     {
-        std::cout << "Key: " << it->first
-             << ", Value: " << it->second << std::endl;
-        ++it;
+
+        outputFile << i << std::endl;
     }
+
 
     for (int i = 0; i < wordVector.size(); i++)
     {
-        outputFile << wordVector[i] << " " << i << std::endl;
+        myMap[wordVector[i]] = wordValues[i];
     }
 
-    bookFile.close();
+    std::cout << iterate->second;
+
     outputFile.close();
+    bookFile.close();
     return 0;
 }
