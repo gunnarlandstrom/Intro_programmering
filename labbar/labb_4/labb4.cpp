@@ -3,6 +3,7 @@
 #include "vectorfunk.h"
 #include <algorithm>
 #include <map>
+#include <string>
 
 int main()
 {
@@ -24,7 +25,6 @@ int main()
     bookFile >> wordOne;
 
     std::map<std::string, int> myMap;
-    std::map<std::string, int>::const_iterator iterate;
 
     while (!bookFile.eof())
     {
@@ -37,23 +37,17 @@ int main()
             cleanedWord = removeSpecialCharacter(wordOne);
         }
 
+        myMap.insert(std::pair<std::string, int>(cleanedWord, 0));
+        myMap[cleanedWord]++;
+
         bookFile >> wordOne;
-        wordVector.push_back(cleanedWord);
-        wordValues++;
     }
-    for (auto i : wordVector)
+
+
+    for (auto key : myMap)
     {
-
-        outputFile << i << std::endl;
+        outputFile << key.first << " " << key.second << std::endl;
     }
-
-
-    for (int i = 0; i < wordVector.size(); i++)
-    {
-        myMap[wordVector[i]] = wordValues[i];
-    }
-
-    std::cout << iterate->second;
 
     outputFile.close();
     bookFile.close();
