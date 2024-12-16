@@ -10,14 +10,12 @@ int main()
     std::string fileOne = "hitchhikersguide.txt";
     std::string outputDocument = "outPut.txt";
 
-    std::ifstream bookFile;
-    std::ifstream mappingFile;
+    std::ifstream bookFile, mappingFile;
     std::ofstream outputFile;
 
-    std::string wordOne, wordTwo, cleanedWord;
+    std::string wordOne, cleanedWord;
 
-    std::vector<std::string> wordVector;
-    int wordValues;
+    std::vector<std::pair<std::string, int>> wordVector;
 
     outputFile.open(outputDocument);
     bookFile.open(fileOne);
@@ -31,18 +29,22 @@ int main()
 
         cleanedWord = removeSpecialCharacter(wordOne);
 
-        if (cleanedWord == "")
+        for (int i = 0; i < cleanedWord.length(); ++i)
         {
-            bookFile >> wordOne;
-            cleanedWord = removeSpecialCharacter(wordOne);
-        }
+            if (myMap.find(cleanedWord) == myMap.end())
+            {
+                myMap[cleanedWord] = 0;
+            }
 
-        myMap.insert(std::pair<std::string, int>(cleanedWord, 0));
-        myMap[cleanedWord]++;
+            myMap[cleanedWord]++;
+
+            std::cout << cleanedWord << " " << myMap[cleanedWord] << std::endl;
+
+            cleanedWord = cleanedWord[i];
+        }
 
         bookFile >> wordOne;
     }
-
 
     for (auto key : myMap)
     {
