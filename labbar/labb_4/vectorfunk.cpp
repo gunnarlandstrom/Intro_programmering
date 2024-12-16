@@ -23,14 +23,11 @@ std::string removeSpecialCharacter(std::string cleanWord)
 
             cleanWord.erase(i, 1);
             i--;
-
-            std::cout << cleanWord << " " << i << std::endl;
         }
     }
-    if (cleanWord[cleanWord.length()-1] == char(39))
+    if (cleanWord[cleanWord.length() - 1] == char(39))
     {
-        cleanWord.erase(cleanWord.length()-1);
-
+        cleanWord.erase(cleanWord.length() - 1);
     }
 
     std::transform(cleanWord.begin(), cleanWord.end(), cleanWord.begin(), ::tolower);

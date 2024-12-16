@@ -1,12 +1,12 @@
 #include <vector>
 #include <iostream>
 #include "vectorfunk.h"
-#include <string>
 #include <algorithm>
+#include <map>
 
 int main()
 {
-    std::string fileOne = "test.txt";
+    std::string fileOne = "hitchhikersguide.txt";
     std::string outputDocument = "outPut.txt";
 
     std::ifstream bookFile;
@@ -26,17 +26,31 @@ int main()
 
         cleanedWord = removeSpecialCharacter(wordOne);
 
-        std::cout << cleanedWord << std::endl;
+        if (cleanedWord == "")
+        {
+            bookFile >> wordOne;
+            cleanedWord = removeSpecialCharacter(wordOne);
+        }
+
 
         wordVector.push_back(cleanedWord);
 
-
         bookFile >> wordOne;
     }
+
+    std::map<std::string, int> myMap;
+    std::map<std::string, int>::iterator it = myMap.begin();
+
+    while (it != myMap.end())
+    {
+        std::cout << "Key: " << it->first
+             << ", Value: " << it->second << std::endl;
+        ++it;
+    }
+
     for (int i = 0; i < wordVector.size(); i++)
     {
         outputFile << wordVector[i] << " " << i << std::endl;
-        //std::cout << wordVector[i] << " " << i << std::endl << std::endl;
     }
 
     bookFile.close();
