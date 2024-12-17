@@ -15,7 +15,8 @@ int main()
 
     std::string wordOne, cleanedWord;
 
-    std::vector<std::pair<std::string, int>> wordVector;
+    std::vector<std::pair<std::string, int>> myVector;
+    std::vector<std::pair<std::string, int>> maxVector;
 
     outputFile.open(outputDocument);
     bookFile.open(fileOne);
@@ -38,13 +39,21 @@ int main()
 
             myMap[cleanedWord]++;
 
-            std::cout << cleanedWord << " " << myMap[cleanedWord] << std::endl;
+            // std::cout << cleanedWord << " " << myMap[cleanedWord] << std::endl;
 
             cleanedWord = cleanedWord[i];
         }
 
         bookFile >> wordOne;
     }
+
+    std::copy(myMap.begin(), myMap.end(), back_inserter(myVector));
+
+    for (auto &pair : myVector)
+    {
+        std::cout << pair.first << ", " << pair.second << std::endl;
+    }
+    auto pair = *std::max_element(std::begin(myVector), std::end(myVector));
 
     for (auto key : myMap)
     {
