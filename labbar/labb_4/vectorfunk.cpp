@@ -1,8 +1,6 @@
-#include <fstream>
-#include "vectorfunk.h"
+#include "functions.h"
 #include <iostream>
 #include <algorithm>
-#include <utility>
 
 std::string removeSpecialCharacter(std::string cleanWord)
 {

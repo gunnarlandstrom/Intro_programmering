@@ -1,9 +1,8 @@
-#include <vector>
 #include <iostream>
-#include "vectorfunk.h"
+#include "functions.h"
+#include <vector>
 #include <algorithm>
 #include <map>
-#include <string>
 
 int main()
 {
@@ -24,27 +23,20 @@ int main()
 
     bookFile >> wordOne;
 
+    // välj antal utmatningar
     int n = 5;
 
     while (!bookFile.eof())
     {
-
         cleanedWord = removeSpecialCharacter(wordOne);
-
-        for (int i = 0; i < cleanedWord.length(); ++i)
+        if (myMap.find(cleanedWord) == myMap.end())
         {
-            if (myMap.find(cleanedWord) == myMap.end())
-            {
-                myMap[cleanedWord] = 0;
-            }
-
-            myMap[cleanedWord]++;
-
-            // std::cout << cleanedWord << " " << myMap[cleanedWord] << std::endl;
-
-            cleanedWord = cleanedWord[i];
+            myMap[cleanedWord] = 1;
         }
-
+        else
+        {
+            myMap[cleanedWord]++;
+        }
         bookFile >> wordOne;
     }
 
@@ -59,7 +51,6 @@ int main()
 
     for (auto itr : myVector)
     {
-
         std::cout << itr.first << ": " << itr.second << std::endl;
         n--;
         if (n == 0)
