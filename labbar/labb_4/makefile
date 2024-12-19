@@ -1,5 +1,5 @@
-programmet: labb4.cpp vectorfunk.cpp vectorfunk.h
-	g++ -o programmet labb4.cpp vectorfunk.cpp
+programmet: labb4.cpp functions.cpp functions.h
+	g++ -o programmet labb4.cpp functions.cpp
 
 run: programmet
 	./programmet

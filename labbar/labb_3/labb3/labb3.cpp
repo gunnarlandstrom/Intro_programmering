@@ -2,6 +2,13 @@
 #include "funktion2.h"
 #include <iostream>
 
+/*
+    Gunnar Landström
+    ??-2024
+    DT028G Datateknik GR (A), Introduktion till programmering
+    Labb_3
+*/
+
 int main()
 {
     bool isSortedFileOne;

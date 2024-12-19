@@ -4,19 +4,24 @@
 #include <algorithm>
 #include <map>
 
+/*
+    Gunnar Landström
+    19/12-2024
+    DT028G Datateknik GR (A), Introduktion till programmering
+    Labb_4
+*/
+
 int main()
 {
     std::string fileOne = "hitchhikersguide.txt";
     std::string outputDocument = "outPut.txt";
+    std::string wordOne, wordTwo, cleanedWord;
 
     std::ifstream bookFile, mappingFile;
     std::ofstream outputFile;
 
-    std::string wordOne, cleanedWord;
-
     std::map<std::string, int> myMap;
     std::vector<std::pair<std::string, int>> myVector;
-    std::vector<std::pair<std::string, int>> maxVector;
 
     outputFile.open(outputDocument);
     bookFile.open(fileOne);
@@ -24,29 +29,33 @@ int main()
     bookFile >> wordOne;
 
     // välj antal utmatningar
-    int n = 5;
+    int n = 30;
 
     while (!bookFile.eof())
     {
         cleanedWord = removeSpecialCharacter(wordOne);
-        if (myMap.find(cleanedWord) == myMap.end())
+
+        if (cleanedWord != "")
         {
-            myMap[cleanedWord] = 1;
-        }
-        else
-        {
-            myMap[cleanedWord]++;
+            if (myMap.find(cleanedWord) == myMap.end())
+            {
+                myMap[cleanedWord] = 1;
+            }
+            else
+            {
+                myMap[cleanedWord]++;
+            }
         }
         bookFile >> wordOne;
     }
 
     std::copy(myMap.begin(), myMap.end(), back_inserter(myVector));
 
-    sort(myVector.rbegin(), myVector.rend(),
+    sort(myVector.begin(), myVector.end(),
          [](const std::pair<std::string, int> &a,
             const std::pair<std::string, int> &b)
          {
-             return a.second < b.second;
+             return a.second > b.second;
          });
 
     for (auto itr : myVector)
