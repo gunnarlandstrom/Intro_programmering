@@ -4,7 +4,7 @@
 #include <fstream>
 
 
-int bullsAndCows(std::string fileOne, std::string fileTwo);
+int randomNumberGenerator();
 
 
 

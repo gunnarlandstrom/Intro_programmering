@@ -5,31 +5,25 @@
 #include <cstdlib>
 #include <ctime>
 
-std::vector<std::pair<int, int>> bullcowVector;
-int bullsAndCows(std::string fileOne, std::string fileTwo)
+int randomNumberGenerator()
 {
-    std::ifstream inputFile;
-    std::ofstream outputFile;
 
-    inputFile.open(fileOne);
-    outputFile.open(fileTwo);
+    srand(time(0));
 
-    int randomNumberOne, randomNumberTwo, randomNumberThree, randomNumberFour;
+    int randomNumber;
 
     for (int i = 0; i < 10; i++)
     {
-
-        randomNumberOne = srand(time) % 10;
-
-        //outputFile << randomNumberOne;
-        std::cout << randomNumberOne;
-
-
+        randomNumber = rand() % 10000;
+        if (randomNumber < 1000)
+        {
+            i--;
+        }
+        if (randomNumber == 0000)
+        {
+            break;
+        }
     }
-    inputFile >> randomNumberOne >> randomNumberTwo >> randomNumberThree >> randomNumberFour;
 
-
-    inputFile.close();
-    outputFile.close();
-    return 0;
+    return randomNumber;
 }
