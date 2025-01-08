@@ -1,9 +1,9 @@
-programmet: project.cpp functions.cpp functions.h
-	g++ -o programmet project.cpp functions.cpp
+program: project.cpp game.cpp game.h 
+	g++ -o program project.cpp game.cpp
 
-run: programmet
-	./programmet
+run: program
+	./program
 
 clean:
-	rm programmet
+	rm program
 
