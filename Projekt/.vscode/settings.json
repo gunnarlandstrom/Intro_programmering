@@ -69,6 +69,7 @@
         "variant": "cpp",
         "map": "cpp",
         "iomanip": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "xtree": "cpp"
     }
 }

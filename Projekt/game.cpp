@@ -5,6 +5,8 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <map>
+#include <algorithm>
 
 bullCows::bullCows()
 {
@@ -20,15 +22,27 @@ std::string bullCows::generateNumber()
 
 std::string bullCows::genereraGissning()
 {
+    std::string highestGuess;
     if (storedGuesses.size() == 0)
     {
         std::string firstGuess = "1023";
-
         return firstGuess;
     }
     else
     {
+        for (const auto &itr : storedGuesses)
+        {
+            highestGuess += std::stoi(itr.first);
+            std::cout << highestGuess << std::endl;
+        }
     }
+}
+
+bool bullCows::giltigGissning() {
+    
+
+
+
 }
 
 std::string bullCows::generateGuess()
@@ -66,18 +80,54 @@ void bullCows::setSolution(std::string value)
 int bullCows::play()
 {
     std::string userInput;
-    std::cout << "\n"
-              << "Write your number: ";
+    std::cout << "Write a number with 4 digits, no digit alike: ";
     std::cin >> userInput;
+    std::string userInputTemp = userInput;
+    int x = 0;
+
+    // Kontrollerar felinmatning av nummer
+    while (x != 4)
+    {
+        x = 0;
+        for (int i = 0; i < userInput.size(); i++)
+        {
+            if (userInput[i] < 48 || userInput[i] > 57 || userInput.size() != 4)
+            {
+                std::cout << "*BEEP* Too many! or few! or not number... Try again! *BOOP*... 4 different numbers! :";
+                std::cin >> userInput;
+                userInputTemp = userInput;
+                i--;
+            }
+            for (int j = 0; j < userInput.size(); j++)
+            {
+
+                if (userInput[i] == userInputTemp[j])
+                {
+                    x++;
+                }
+            }
+        }
+        if (x != 4)
+        {
+            std::cout << "*BEEP* Maybe same?! maybe error! again! *BOOP*: ... 4 different numbers!: ";
+            std::cin >> userInput;
+            userInputTemp = userInput;
+        }
+    }
 
     bullCows::setSolution(userInput);
+
     std::string computerGuess = bullCows::genereraGissning();
 
     storedGuesses[computerGuess] = {howManyBullsAndCows(computerGuess)};
-    // std::pair<int, int> numberOfBullsAndCows = bullCows::howManyBullsAndCows(computerGuess);
 
+    std::pair<int, int> numberOfBullsAndCows = bullCows::howManyBullsAndCows(computerGuess);
     std::cout << "Number of Bulls: " << storedGuesses[computerGuess].first << std::endl;
     std::cout << "Number of Cows: " << storedGuesses[computerGuess].second << std::endl;
+
+    computerGuess = bullCows::genereraGissning();
+
+    std::cout << computerGuess << std::endl;
     return 0;
 }
 
@@ -122,7 +172,7 @@ bool bullCows::menu()
         }
         else
         {
-            std::cout << "Something went wrong, please try again, only enter Y for Yes, and N for No: [Y/N]" << std::endl;
+            std::cout << "Something went wrong, please try again, enter Y for Yes, and N for No: [Y/N]" << std::endl;
         }
     }
 }

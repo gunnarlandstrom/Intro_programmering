@@ -20,7 +20,6 @@ public:
 private:
     std::string generateNumber();
     std::map<std::string, std::pair<int,int>> storedGuesses;
-
     std::string solution;
 };
 
