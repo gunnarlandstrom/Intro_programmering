@@ -23,26 +23,72 @@ std::string bullCows::generateNumber()
 std::string bullCows::genereraGissning()
 {
     std::string highestGuess;
-    if (storedGuesses.size() == 0)
+    std::string currentGuess;
+
+    do
     {
-        std::string firstGuess = "1023";
-        return firstGuess;
+        if (storedGuesses.size() == 0)
+        {
+            std::string firstGuess = "1023";
+            storedGuesses[firstGuess] = howManyBullsAndCows(firstGuess);
+            return firstGuess;
+        }
+        else
+        {
+            highestGuess = storedGuesses.end()->first;
+            currentGuess = std::stoi(highestGuess) + 1;
+
+        }
+
+    } while (!giltigGissning(currentGuess));
+}
+
+bool bullCows::giltigGissning(std::string gissning)
+{
+    bool isRepeated = doesNumbersRepeat(gissning);
+    if (isRepeated)
+    {
+        return false;
+    }
+    if (storedGuesses.find(gissning) == storedGuesses.end())
+    {
+        return true;
     }
     else
     {
-        for (const auto &itr : storedGuesses)
-        {
-            highestGuess += std::stoi(itr.first);
-            std::cout << highestGuess << std::endl;
-        }
+        return false;
     }
 }
 
-bool bullCows::giltigGissning() {
-    
+bool bullCows::doesNumbersRepeat(std::string gissning)
+{
+    int x = 0;
+    std::string gissningTemp = gissning;
+    while (x != 4)
+    {
+        x = 0;
+        for (int i = 0; i < gissning.size(); i++)
+        {
+            if (gissning[i] < 48 || gissning[i] > 57 || gissning.size() != 4)
+            {
+                gissningTemp = gissning;
+                i--;
+            }
+            for (int j = 0; j < gissning.size(); j++)
+            {
 
-
-
+                if (gissning[i] == gissningTemp[j])
+                {
+                    x++;
+                }
+            }
+        }
+        if (x != 4)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 std::string bullCows::generateGuess()
@@ -79,29 +125,29 @@ void bullCows::setSolution(std::string value)
 
 int bullCows::play()
 {
-    std::string userInput;
+    std::string gissning;
     std::cout << "Write a number with 4 digits, no digit alike: ";
-    std::cin >> userInput;
-    std::string userInputTemp = userInput;
+    std::cin >> gissning;
+    std::string gissningTemp = gissning;
     int x = 0;
 
     // Kontrollerar felinmatning av nummer
     while (x != 4)
     {
         x = 0;
-        for (int i = 0; i < userInput.size(); i++)
+        for (int i = 0; i < gissning.size(); i++)
         {
-            if (userInput[i] < 48 || userInput[i] > 57 || userInput.size() != 4)
+            if (gissning[i] < 48 || gissning[i] > 57 || gissning.size() != 4)
             {
                 std::cout << "*BEEP* Too many! or few! or not number... Try again! *BOOP*... 4 different numbers! :";
-                std::cin >> userInput;
-                userInputTemp = userInput;
+                std::cin >> gissning;
+                gissningTemp = gissning;
                 i--;
             }
-            for (int j = 0; j < userInput.size(); j++)
+            for (int j = 0; j < gissning.size(); j++)
             {
 
-                if (userInput[i] == userInputTemp[j])
+                if (gissning[i] == gissningTemp[j])
                 {
                     x++;
                 }
@@ -110,12 +156,12 @@ int bullCows::play()
         if (x != 4)
         {
             std::cout << "*BEEP* Maybe same?! maybe error! again! *BOOP*: ... 4 different numbers!: ";
-            std::cin >> userInput;
-            userInputTemp = userInput;
+            std::cin >> gissning;
+            gissningTemp = gissning;
         }
     }
 
-    bullCows::setSolution(userInput);
+    bullCows::setSolution(gissning);
 
     std::string computerGuess = bullCows::genereraGissning();
 

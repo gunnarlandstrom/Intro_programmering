@@ -12,10 +12,11 @@ public:
     std::string generateGuess();
     void setSolution(std::string value);
     bool menu();
+    bool giltigGissning(std::string gissning);
     int play();
+    bool doesNumbersRepeat(std::string gissning);
     std::string genereraGissning();
     std::pair<int,int> howManyBullsAndCows(std::string guess);
-
 
 private:
     std::string generateNumber();
