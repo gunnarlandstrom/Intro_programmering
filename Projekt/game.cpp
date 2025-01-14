@@ -3,8 +3,6 @@
 #include <fstream>
 #include <random>
 #include <string>
-#include <sstream>
-#include <iomanip>
 #include <map>
 
 // Creates constructor
@@ -29,6 +27,7 @@ std::string bullCows::generateGuess()
     std::string previousGuess;
     do
     {
+        // first guess, map empty.
         if (storedGuesses.size() == 0)
         {
             std::string firstGuess = "1023";
@@ -55,11 +54,14 @@ std::string bullCows::generateGuess()
                     return currentGuess;
                 }
             }
-            highestGuess = storedGuesses.rbegin()->first;
-            temp = std::stoi(highestGuess);
-            temp++;
-            currentGuess = std::to_string(temp);
-            previousGuess = currentGuess;
+            else
+            {
+                highestGuess = storedGuesses.rbegin()->first;
+                temp = std::stoi(highestGuess);
+                temp++;
+                currentGuess = std::to_string(temp);
+                previousGuess = currentGuess;
+            }
         }
 
     } while (!validGuess(currentGuess));
@@ -72,14 +74,15 @@ bool bullCows::validGuess(std::string guess)
     bool isRepeated = doesNumbersRepeat(guess);
     if (isRepeated)
     {
+        // Repeated, not allowed.
         return false;
     }
     if (storedGuesses.find(guess) == storedGuesses.end())
-    {
+    { // Not found.
         return true;
     }
     else
-    {
+    { // Found.
         return false;
     }
 }
@@ -161,7 +164,7 @@ int bullCows::play()
     {
         bullCows::setSolution(humanSolution);
     }
-    else if (!isValidatedGuess)
+    else
     {
         while (!isValidatedGuess)
         {
@@ -182,9 +185,6 @@ int bullCows::play()
         std::string humanAnswer;
         computerGuess = bullCows::generateGuess();
         std::cout << "*Beep-Boop-Beep* My guess is: " << computerGuess << std::endl;
-
-        std::pair<int, int> numberOfBullsAndCows = bullCows::howManyBullsAndCows(computerGuess);
-
         std::cout << "*Beep* Did I do well? How many Bulls and Cows!?" << std::endl;
         std::cout << "Do you want to automize Bulls/Cows or Answer yourself([S] for solution [Y] to automize, [N] manual): [Y/N/S] " << std::endl;
         do

@@ -9,18 +9,17 @@ class bullCows
 public:
     bullCows();
     std::string getSolution();
-    std::string generateRandomGuess();
-    void setSolution(std::string value);
-    bool menu();
-    bool validGuess(std::string guess);
     int play();
+    bool menu();
+    std::string generateRandomGuess();
+    std::string generateNumber();
+    void setSolution(std::string value);
+    bool validGuess(std::string guess);
     bool doesNumbersRepeat(std::string guess);
     std::string generateGuess();
-    std::pair<int,int> howManyBullsAndCows(std::string guess);
-
-private:
-    std::string generateNumber();
-    std::map<std::string, std::pair<int,int>> storedGuesses;
+    std::pair<int, int> howManyBullsAndCows(std::string guess);
+    // map of string key so number can start with 0
+    std::map<std::string, std::pair<int, int>> storedGuesses;
     std::string solution;
 };
 
