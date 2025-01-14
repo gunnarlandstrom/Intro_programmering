@@ -6,12 +6,13 @@
 #include <sstream>
 #include <iomanip>
 #include <map>
-#include <algorithm>
 
+// Creates constructor
 bullCows::bullCows()
 {
 }
 
+// Generates random number between [0,9]
 std::string bullCows::generateNumber()
 {
     srand(time(0));
@@ -20,11 +21,12 @@ std::string bullCows::generateNumber()
     return std::to_string(randomNumber);
 }
 
-std::string bullCows::genereraGissning()
+// Generates guess
+std::string bullCows::generateGuess()
 {
     std::string highestGuess;
     std::string currentGuess;
-
+    std::string previousGuess;
     do
     {
         if (storedGuesses.size() == 0)
@@ -35,22 +37,44 @@ std::string bullCows::genereraGissning()
         }
         else
         {
-            highestGuess = storedGuesses.end()->first;
-            currentGuess = std::stoi(highestGuess) + 1;
+            bool isValid;
+            int temp;
+            if (previousGuess != "")
+            {
 
+                currentGuess = std::to_string(std::stoi(previousGuess) + 1);
+                isValid = bullCows::validGuess(currentGuess);
+                if (!isValid)
+                {
+                    previousGuess = currentGuess;
+                    continue;
+                }
+                else
+                {
+                    storedGuesses[currentGuess] = howManyBullsAndCows(currentGuess);
+                    return currentGuess;
+                }
+            }
+            highestGuess = storedGuesses.rbegin()->first;
+            temp = std::stoi(highestGuess);
+            temp++;
+            currentGuess = std::to_string(temp);
+            previousGuess = currentGuess;
         }
 
-    } while (!giltigGissning(currentGuess));
+    } while (!validGuess(currentGuess));
+    return currentGuess;
 }
 
-bool bullCows::giltigGissning(std::string gissning)
+// Check if guess is valid according to the rules
+bool bullCows::validGuess(std::string guess)
 {
-    bool isRepeated = doesNumbersRepeat(gissning);
+    bool isRepeated = doesNumbersRepeat(guess);
     if (isRepeated)
     {
         return false;
     }
-    if (storedGuesses.find(gissning) == storedGuesses.end())
+    if (storedGuesses.find(guess) == storedGuesses.end())
     {
         return true;
     }
@@ -60,38 +84,39 @@ bool bullCows::giltigGissning(std::string gissning)
     }
 }
 
-bool bullCows::doesNumbersRepeat(std::string gissning)
+// Checks if number repeats or value falls outside required scope.
+bool bullCows::doesNumbersRepeat(std::string guess)
 {
     int x = 0;
-    std::string gissningTemp = gissning;
-    while (x != 4)
+    for (int i = 0; i < 4; i++)
     {
-        x = 0;
-        for (int i = 0; i < gissning.size(); i++)
+        if (guess[i] < 48 || guess[i] > 57 || guess.size() != 4)
         {
-            if (gissning[i] < 48 || gissning[i] > 57 || gissning.size() != 4)
-            {
-                gissningTemp = gissning;
-                i--;
-            }
-            for (int j = 0; j < gissning.size(); j++)
-            {
-
-                if (gissning[i] == gissningTemp[j])
-                {
-                    x++;
-                }
-            }
+            return true;
         }
-        if (x != 4)
+
+        for (int j = 0; j < 10; j++)
         {
-            return false;
+
+            if (guess[j] == guess[i])
+            {
+                x++;
+            }
         }
     }
-    return true;
+
+    if (x == 4)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
-std::string bullCows::generateGuess()
+// Generates random guess.
+std::string bullCows::generateRandomGuess()
 {
     std::string guess = bullCows::generateNumber();
     while (guess.length() != 4)
@@ -104,77 +129,105 @@ std::string bullCows::generateGuess()
         }
         else
         { // not found
-            std::cout << "\r" << "*Beep-Boop-Beep* My first guess is: " << guess;
             guess += temp;
         }
     }
-    std::cout << "\r" << "*Beep-Boop-Beep* My first guess is: " << guess << std::endl;
     return guess;
 }
 
+// Returns solution.
 std::string bullCows::getSolution()
 {
 
     return this->solution;
 }
 
+// Sets solution.
 void bullCows::setSolution(std::string value)
 {
     this->solution = value;
 }
 
+// Play the game.
 int bullCows::play()
 {
-    std::string gissning;
+
+    std::string humanSolution;
     std::cout << "Write a number with 4 digits, no digit alike: ";
-    std::cin >> gissning;
-    std::string gissningTemp = gissning;
-    int x = 0;
+    std::cin >> humanSolution;
+    bool isValidatedGuess = bullCows::validGuess(humanSolution);
 
-    // Kontrollerar felinmatning av nummer
-    while (x != 4)
+    if (isValidatedGuess)
     {
-        x = 0;
-        for (int i = 0; i < gissning.size(); i++)
+        bullCows::setSolution(humanSolution);
+    }
+    else if (!isValidatedGuess)
+    {
+        while (!isValidatedGuess)
         {
-            if (gissning[i] < 48 || gissning[i] > 57 || gissning.size() != 4)
-            {
-                std::cout << "*BEEP* Too many! or few! or not number... Try again! *BOOP*... 4 different numbers! :";
-                std::cin >> gissning;
-                gissningTemp = gissning;
-                i--;
-            }
-            for (int j = 0; j < gissning.size(); j++)
-            {
+            std::cout << "*BEEEP* Not number! Maybe too many or few! or Ye' Cheatin! *BOop-beep* 4 digits! all different! :";
+            std::cin >> humanSolution;
+            isValidatedGuess = bullCows::validGuess(humanSolution);
 
-                if (gissning[i] == gissningTemp[j])
-                {
-                    x++;
-                }
+            if (isValidatedGuess)
+            {
+                bullCows::setSolution(humanSolution);
             }
-        }
-        if (x != 4)
-        {
-            std::cout << "*BEEP* Maybe same?! maybe error! again! *BOOP*: ... 4 different numbers!: ";
-            std::cin >> gissning;
-            gissningTemp = gissning;
         }
     }
+    std::string computerGuess;
+    std::cout << "*Beepop! Ahh, you have chosen a number for me *Boop*" << std::endl;
+    while (computerGuess != solution)
+    {
+        std::string humanAnswer;
+        computerGuess = bullCows::generateGuess();
+        std::cout << "*Beep-Boop-Beep* My guess is: " << computerGuess << std::endl;
 
-    bullCows::setSolution(gissning);
+        std::pair<int, int> numberOfBullsAndCows = bullCows::howManyBullsAndCows(computerGuess);
 
-    std::string computerGuess = bullCows::genereraGissning();
+        std::cout << "*Beep* Did I do well? How many Bulls and Cows!?" << std::endl;
+        std::cout << "Do you want to automize Bulls/Cows or Answer yourself([S] for solution [Y] to automize, [N] manual): [Y/N/S] " << std::endl;
+        do
+        {
+            std::cin >> humanAnswer;
 
-    storedGuesses[computerGuess] = {howManyBullsAndCows(computerGuess)};
-
-    std::pair<int, int> numberOfBullsAndCows = bullCows::howManyBullsAndCows(computerGuess);
-    std::cout << "Number of Bulls: " << storedGuesses[computerGuess].first << std::endl;
-    std::cout << "Number of Cows: " << storedGuesses[computerGuess].second << std::endl;
-
-    computerGuess = bullCows::genereraGissning();
-
-    std::cout << computerGuess << std::endl;
-    return 0;
+            if (humanAnswer == "Y")
+            {
+                storedGuesses[computerGuess] = {howManyBullsAndCows(computerGuess)};
+                std::cout << "Number of Bulls: " << storedGuesses[computerGuess].first << std::endl;
+                std::cout << "Number of Cows: " << storedGuesses[computerGuess].second << std::endl
+                          << std::endl;
+                break;
+            }
+            else if (humanAnswer == "N")
+            {
+                std::string humanAnswerBulls, humanAnswerCows;
+                std::cout << "How many Bulls?: ";
+                std::cin >> humanAnswerBulls;
+                std::cout << "How many Cows?: ";
+                std::cin >> humanAnswerCows;
+                storedGuesses[computerGuess] = {std::stoi(humanAnswerBulls), std::stoi(humanAnswerCows)};
+                std::cout << std::endl;
+                if (humanAnswerBulls == "4")
+                {
+                    std::cout << "*BEEPOOOP* I GUESSED RIGHT!!!*Beep-beep* Victoreep!" << std::endl;
+                    return 1;
+                }
+                break;
+            }
+            else if (humanAnswer == "S")
+            {
+                std::cout << "Solution is: " << solution << std::endl;
+                std::cout << "Do you want to automize Bulls/Cows or Answer yourself(Type [S] for solution): [Y/N/S] " << std::endl;
+            }
+            else
+            {
+                std::cout << "*BEEP* Wrong inputs friend, try again: [Y/N/S]: ";
+            }
+        } while (humanAnswer != "Y" || humanAnswer != "N");
+    }
+    std::cout << "*BEEPOOOP* I GUESSED RIGHT!!!*Beep-beep* Victoreep!" << std::endl;
+    return 1;
 }
 
 std::pair<int, int> bullCows::howManyBullsAndCows(std::string guess)
@@ -185,17 +238,18 @@ std::pair<int, int> bullCows::howManyBullsAndCows(std::string guess)
     {
 
         if (solution[i] == guess[i])
-        { // found
+        { // found a Bull
             thisManyBulls++;
         }
         else if (solution.find(guess[i]) != std::string::npos)
-        {
+        { // found a Cow
             thisManyCows++;
         }
     }
     return std::make_pair(thisManyBulls, thisManyCows);
 }
 
+// Checks if user want to play or not.
 bool bullCows::menu()
 {
     std::string question;

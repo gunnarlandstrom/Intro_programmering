@@ -1,9 +1,9 @@
-program: project.cpp game.cpp game.h 
-	g++ -o program project.cpp game.cpp
+main: main.cpp game.cpp game.h 
+	g++ -o main main.cpp game.cpp
 
-run: program
-	./program
+run: main
+	./main
 
 clean:
-	rm program
+	rm main
 

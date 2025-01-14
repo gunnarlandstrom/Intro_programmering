@@ -9,13 +9,13 @@ class bullCows
 public:
     bullCows();
     std::string getSolution();
-    std::string generateGuess();
+    std::string generateRandomGuess();
     void setSolution(std::string value);
     bool menu();
-    bool giltigGissning(std::string gissning);
+    bool validGuess(std::string guess);
     int play();
-    bool doesNumbersRepeat(std::string gissning);
-    std::string genereraGissning();
+    bool doesNumbersRepeat(std::string guess);
+    std::string generateGuess();
     std::pair<int,int> howManyBullsAndCows(std::string guess);
 
 private:
